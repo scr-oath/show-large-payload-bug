@@ -24,6 +24,10 @@ public class TestLargePayloadBug {
     static int port;
     static String uri;
 
+    /**
+     * Fire up a vanilla JDK11 server
+     * @throws IOException
+     */
     @BeforeAll
     static void beforeAll() throws IOException {
         server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
@@ -39,11 +43,20 @@ public class TestLargePayloadBug {
         uri = "http://localhost:" + port + "/";
     }
 
+    /**
+     * Tear down the server
+     */
     @AfterAll
     static void afterAll() {
         server.stop(0);
     }
 
+    /**
+     * Ensure the server is up and running
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Test
     void testServerUp() throws IOException, InterruptedException {
         var response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI.create(uri))
@@ -52,6 +65,11 @@ public class TestLargePayloadBug {
         assertEquals(CANNED_RESPONSE, response.body());
     }
 
+    /**
+     * Run the {@link Karate} feature
+     *
+     * @return
+     */
     @Karate.Test
     Karate TestLargePayload() {
         return Karate.run("large-payload")

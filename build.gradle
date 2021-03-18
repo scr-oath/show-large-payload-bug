@@ -10,6 +10,8 @@ dependencies {
     testCompile "com.intuit.karate:karate-junit5:${karateVersion}"
 }
 
+sourceCompatibility = '11'
+
 sourceSets {
     test {
         resources {
