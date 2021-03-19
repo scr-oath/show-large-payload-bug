@@ -2,7 +2,7 @@
 Feature: Simple post requests of different sizes
   In order to display the bug in sending large payloads, send a few payloads.
 
-  Scenario Outline:
+  Scenario Outline: Make a request to local server using #inputFile
     Given url karate.properties['uri']
     And form field text = karate.readAsString(inputFile)
     When method post
